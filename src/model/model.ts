@@ -3,6 +3,8 @@ import {
 	atom,
 } from '@reatom/framework'
 
+// TODO: перевести на настоящие данные
+
 const initState = localStorage.getItem('irl-stream') ?? ''
 
 const testDataAtom = atom(initState, 'testDataAtom')
