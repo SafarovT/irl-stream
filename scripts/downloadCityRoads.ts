@@ -37,8 +37,7 @@ out skel;`
 	return queryOverpass(query).then(print)
 }
 
-function print(res) {
-	console.log(res)
+function print() {
 	console.warn('')
 	console.warn('All done. Now run: ')
 	console.warn('')

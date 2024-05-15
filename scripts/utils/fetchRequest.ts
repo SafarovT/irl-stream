@@ -4,7 +4,7 @@ type FetchRequestCommonParams = {
 } 
 
 type FetchPostRequestParams = FetchRequestCommonParams & {
-    dataObject?: object,
+    body?: string,
 }
 
 type FetchGetRequestParams = FetchRequestCommonParams
@@ -12,12 +12,12 @@ type FetchGetRequestParams = FetchRequestCommonParams
 const fetchPostRequest = async ({
     requestUrl,
     headers,
-    dataObject,
+    body,
 }: FetchPostRequestParams) => {
     return fetch(requestUrl, {
         method: 'POST',
         headers,
-        body: JSON.stringify(dataObject)
+        body,
     }).then(response => {
         if (!response.ok) {
             throw new Error()
