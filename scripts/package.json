@@ -1,0 +1,16 @@
+{
+  "name": "scripts",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Scripts to work with OSM",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/node": "^16.18.97",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.10.2"
+  }
+}
