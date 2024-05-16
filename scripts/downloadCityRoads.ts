@@ -39,11 +39,7 @@ out skel;`
 
 function print() {
 	console.warn('')
-	console.warn('All done. Now run: ')
-	console.warn('')
-	console.warn('node save-roads-graph.js data/[your .json file]')
-	console.warn('')
-	console.warn('To save the graph.')
+	console.warn('All done.')
 }
 
 function fetchAreaIdForQuery(searchQuery: string) {
