@@ -1,19 +1,8 @@
-type FetchRequestCommonParams = {
-    requestUrl: string,
-    headers?: HeadersInit,
-} 
-
-type FetchPostRequestParams = FetchRequestCommonParams & {
-    body?: string,
-}
-
-type FetchGetRequestParams = FetchRequestCommonParams
-
 const fetchPostRequest = async ({
     requestUrl,
     headers,
     body,
-}: FetchPostRequestParams) => {
+}) => {
     return fetch(requestUrl, {
         method: 'POST',
         headers,
@@ -29,7 +18,7 @@ const fetchPostRequest = async ({
 const fetchGetRequest = async ({
     requestUrl,
     headers,
-}: FetchGetRequestParams) => {
+}) => {
     return fetch(requestUrl, {
         method: 'GET',
         headers,

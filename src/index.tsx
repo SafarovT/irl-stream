@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import {
     connectLogger,
     createCtx,
 } from '@reatom/framework'
 import {reatomContext} from '@reatom/npm-react'
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import {MapPage} from "./pages/mapPage/MapPage";
+import './index.css'
+import reportWebVitals from './reportWebVitals'
+import {MapPage} from "./pages/mapPage/MapPage"
 
 const ctx = createCtx()
 connectLogger(ctx)

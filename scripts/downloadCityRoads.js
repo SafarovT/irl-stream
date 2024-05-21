@@ -1,5 +1,5 @@
-import {fetchGetRequest} from "./utils/fetchRequest"
-import {queryOverpass} from "./utils/queryOverpass"
+import {fetchGetRequest} from "./utils/fetchRequest.js"
+import {queryOverpass} from "./utils/queryOverpass.js"
 
 const highwayTags = [
     'motorway',
@@ -23,7 +23,7 @@ const highwayTags = [
 	'road'
 ].join('|')
 
-function runOSM(area: number) {
+function runOSM(area) {
 	let roadFilter = `["highway"~"${highwayTags}"]`
 	let query  = `
 area(${area});
@@ -32,7 +32,7 @@ area(${area});
 way${roadFilter}(area.area);
 node(w);
 );
-out skel;`
+out body;`
 
 	return queryOverpass(query).then(print)
 }
@@ -42,9 +42,9 @@ function print() {
 	console.warn('All done.')
 }
 
-function fetchAreaIdForQuery(searchQuery: string) {
+function fetchAreaIdForQuery(searchQuery) {
 	const requestUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}`
-	const headers: HeadersInit = {
+	const headers = {
 		'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
 	}
     return fetchGetRequest({

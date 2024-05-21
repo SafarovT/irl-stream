@@ -1,14 +1,14 @@
-import {fetchPostRequest} from "./fetchRequest"
+import {fetchPostRequest} from "./fetchRequest.js"
 
-function queryOverpass(query: string) {
+function queryOverpass(query) {
     const overpassUrl = 'https://overpass-api.de/api/interpreter'
     const timeout = 25000
-    const format = 'json'
+    const format = 'xml'
     const outStream = process.stdout
 
     const prefix = `[out:${format}][timeout:${timeout}];\n`
     query = prefix + query
-    
+
     console.warn('Executing: ')
     console.warn('')
     console.warn(query)
@@ -20,7 +20,7 @@ function queryOverpass(query: string) {
         body: 'data=' + encodeURIComponent(query),
     })
         .then(
-            (response: Response) => {
+            response => {
                 response.text().then(data => {
                     outStream.write(data)
                     return data
