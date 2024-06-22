@@ -1,7 +1,7 @@
 import {fetchPostRequest} from "./fetchRequest.js"
 
 function queryOverpass(query) {
-    const overpassUrl = 'https://overpass-api.de/api/interpreter'
+    const overpassUrl = 'https://overpass-api.de/api/interpreter' // к VK обращаться
     const timeout = 25000
     const format = 'xml'
     const outStream = process.stdout

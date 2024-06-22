@@ -8,6 +8,7 @@
     "haversine-distance": "^1.2.1",
     "osm-read": "^0.7.0",
     "typescript": "^4.9.5",
+    "xml2js": "^0.6.2",
     "yargs": "^17.0.1"
   },
   "devDependencies": {

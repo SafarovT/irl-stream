@@ -21,15 +21,19 @@ const highwayTags = [
 	'living_street',
 	// 'pedestrian',
 	'road'
+].join('|') // deprecated
+
+const powerLineTags = [
+	'line',
 ].join('|')
 
 function runOSM(area) {
-	let roadFilter = `["highway"~"${highwayTags}"]`
+	let filter = `[power=${powerLineTags}]`
 	let query  = `
 area(${area});
 (._; )->.area;
 (
-way${roadFilter}(area.area);
+way${filter}(area.area);
 node(w);
 );
 out body;`
@@ -44,12 +48,8 @@ function print() {
 
 function fetchAreaIdForQuery(searchQuery) {
 	const requestUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchQuery)}`
-	const headers = {
-		'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36',
-	}
     return fetchGetRequest({
 		requestUrl,
-		headers,
 	})
 		.then(
 			data => {
