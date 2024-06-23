@@ -2,29 +2,31 @@ import {
 	action,
 	atom,
 } from '@reatom/framework'
+import {reatomAsync} from '@reatom/async'
+import type {BBox, MapObjects} from './types/map'
+import {getOSMData} from './osmDataHandling/getOSMData'
 
-// TODO: перевести на настоящие данные
+const mapData = atom<MapObjects | null>(null)
 
-const initState = localStorage.getItem('irl-stream') ?? ''
-
-const testDataAtom = atom(initState, 'testDataAtom')
-
-const testDataSubAtom = atom((ctx) => {
-	const data = ctx.spy(testDataAtom)
-	return data ? `Test data = ${data}` : ''
-}, 'testDataSubAtom')
-
-const setTestData = action((ctx, data: string) => {
-	testDataAtom(ctx, data)
-}, 'setTestData')
+const getLEPs = reatomAsync(async (ctx, bbox: BBox) => {
+	// TODO: сделать атом загрузки, для отображения прелоудера
+	return await getOSMData(bbox)
+}, {
+	name: 'getLEPs',
+	onFulfill(ctx, result) {
+		mapData(ctx, result)
+	},
+	onReject(ctx, err) {
+		alert('Ошибка ')
+	},
+})
 
 const modelAtoms = {
-	testDataAtom,
-	testDataSubAtom,
+	mapData,
 }
 
 const modelActions = {
-	setTestData,
+	getLEPs,
 }
 
 export {

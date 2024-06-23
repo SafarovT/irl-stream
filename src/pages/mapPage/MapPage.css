@@ -3,3 +3,12 @@
 	width: 100vw;
 	height: 100vh;
 }
+
+.map {
+	width: inherit;
+	height: inherit;
+}
+
+.ol-overlaycontainer-stopevent {
+	display: none;
+}

@@ -1,6 +1,8 @@
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
+import {transformExtent} from 'ol/proj'
 import {Map, View} from 'ol'
+import type {Coord} from '../model/types/map'
 import {AbstractMap} from './AbstractMap'
 
 class MapOSM extends AbstractMap {
@@ -17,14 +19,34 @@ class MapOSM extends AbstractMap {
 			target: undefined,
 			layers: [osmLayer],
 			view: new View({
-				center: [0, 0],
-				zoom: 0,
+				center: [5331435, 7683552],
+        		zoom: 10,
 			}),
 		})
 	}
 
 	public SetTarget(target: string | HTMLElement | undefined) {
 		this.map.setTarget(target)
+	}
+
+	public SetView(center: Coord, zoom: number) {
+		this.map.getView().setCenter([center.lat, center.lon])
+		this.map.getView().setZoom(zoom)
+	}
+
+	public GetBouds() {
+		const bbox = transformExtent(this.map.getView().calculateExtent(this.map.getSize()), 'EPSG:3857', 'EPSG:4326')
+
+		return {
+			p1: {
+				lat: bbox[1],
+				lon: bbox[0],
+			},
+			p2: {
+				lat: bbox[3],
+				lon: bbox[2],
+			},
+		}
 	}
 }
 

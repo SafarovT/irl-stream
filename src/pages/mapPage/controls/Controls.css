@@ -1,0 +1,12 @@
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    width: 300px;
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 0;
+    padding-inline: 15px;
+    padding-block: 15px;
+}
