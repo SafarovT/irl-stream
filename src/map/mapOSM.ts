@@ -52,7 +52,15 @@ class MapOSM extends AbstractMap {
 		}
 	}
 
+	public Clear(): void {
+		const layers = this.map.getAllLayers()
+		for (let i = 1; i < layers.length; i++) {
+			this.map.removeLayer(layers[i])
+		}
+	}
+
 	public DisplayMapObjects(objects: MapObjects): void {
+		this.Clear()
 		const features: Array<Feature> = []
 		objects.nodes.forEach(node => {
 			const point = new Point(fromLonLat([node.coord.lon, node.coord.lat]))

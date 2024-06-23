@@ -34,17 +34,46 @@ function simplifyData(data: any): MapObjects {
                 geometry: geometry,
                 capacity: 1, // TODO: оценить
             })
-            
-            way.nd = [way.nd[0], way.nd[lastPointIndex]]
-
-            way.tag = [{'$': {capacity: 1}}]
         }
     })
     nodesToDelete = nodesToDelete.flat()
+    // Разбивание путей по пересечениям
+    const crossings = nodesToDelete.filter((number, index, numbers) => numbers.indexOf(number) !== index)
+    crossings.forEach(crossing => {
+        const waysWithCrossing = data.osm.way.filter((way: any) => way.nd.find((nd: any) => nd.$.ref === crossing))
+        const crossingNode = data.osm.node.find((node: any) => node.$.id === crossing)
+        const crossingCoord = {
+            lat: crossingNode.$.lat,
+            lon: crossingNode.$.lon,
+        }
+        waysWithCrossing.forEach((wayWithCrossing: any) => {
+            const lastNewWayIndex = newWays.findIndex(way => way.id === wayWithCrossing.$.id)
+            if (lastNewWayIndex !== -1) {
+                const wayToSplit = newWays[lastNewWayIndex]
+                const geometrySplitIndex = wayToSplit.geometry.findIndex(g => g === crossingCoord)
+                newWays.splice(lastNewWayIndex, 1)
+                // делить геометрию
+                newWays.push({
+                    ...wayToSplit,
+                    p2: crossing,
+                    geometry: wayToSplit.geometry.slice(0, geometrySplitIndex)
+                })
+                newWays.push({
+                    ...wayToSplit,
+                    p1: crossing,
+                    geometry: wayToSplit.geometry.slice(geometrySplitIndex)
+                })
+            }
+        })
+        newNodes.push({
+            coord: crossingCoord,
+            id: crossingNode.$.id,
+        })
+    })
 
     // Устранение лишних вершин
     data.osm.node.forEach((node: any) => {
-        if (!nodesToDelete.includes(node.$.id)) {
+        if (!nodesToDelete.includes(node.$.id) && !newNodes.find(newNode => newNode.id === node.$.id)) {
             newNodes.push({
                 coord: {
                     lat: node.$.lat,

@@ -1,10 +1,5 @@
-
-type Node = {
-    
-}
-
 class Graph {
-    constructor(object: Object) {
+    constructor(size: number) {
         
     }
 }
