@@ -16,6 +16,7 @@ type Node = {
 type Way = {
     p1: string,
     p2: string,
+    geometry: Array<Coord>,
     id: string,
     capacity: number,
 }

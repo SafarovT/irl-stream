@@ -1,9 +1,12 @@
 import TileLayer from 'ol/layer/Tile'
 import OSM from 'ol/source/OSM'
-import {transformExtent} from 'ol/proj'
-import {Map, View} from 'ol'
-import type {Coord} from '../model/types/map'
+import {fromLonLat, transformExtent} from 'ol/proj'
+import {LineString, Point} from 'ol/geom'
+import {Feature, Map, View} from 'ol'
+import type {Coord, MapObjects} from '../model/types/map'
 import {AbstractMap} from './AbstractMap'
+import VectorLayer from 'ol/layer/Vector'
+import VectorSource from 'ol/source/Vector'
 
 class MapOSM extends AbstractMap {
 	private map: Map
@@ -47,6 +50,31 @@ class MapOSM extends AbstractMap {
 				lon: bbox[2],
 			},
 		}
+	}
+
+	public DisplayMapObjects(objects: MapObjects): void {
+		const features: Array<Feature> = []
+		objects.nodes.forEach(node => {
+			const point = new Point(fromLonLat([node.coord.lon, node.coord.lat]))
+			features.push(new Feature({
+				geometry: point,
+			}))
+		})
+
+		objects.ways.forEach(way => {
+			const line = new LineString(way.geometry.map(point => fromLonLat([point.lon, point.lat])))
+			features.push(new Feature({
+				geometry: line,
+			}))
+		})
+
+		const vectorLayer = new VectorLayer({
+			source: new VectorSource({
+				features,
+			}),
+		})
+
+		this.map.addLayer(vectorLayer)
 	}
 }
 

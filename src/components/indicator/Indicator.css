@@ -1,0 +1,14 @@
+.indicator {
+    width: 25px;
+    height: 25px;
+    border-radius: 999px;
+    border: 1px solid black
+}
+
+.indicator_active-0 {
+    background-color: crimson;
+}
+
+.indicator_active-1 {
+    background-color: cornflowerblue;
+}

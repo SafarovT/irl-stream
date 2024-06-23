@@ -1,6 +1,6 @@
 import {queryOverpass} from "./queryOverpass"
 import {Parser} from 'xml2js'
-import type {BBox, MapObjects, Way, Node} from "../types/map"
+import type {BBox, MapObjects, Way, Node, Coord} from "../types/map"
 
 const powerLineTag = 'line'
 
@@ -19,10 +19,19 @@ function simplifyData(data: any): MapObjects {
             if (deletingNodes.length > 0) {
                 nodesToDelete.push(deletingNodes.map((wm: any) => wm.$.ref))
             }
+            const geometry: Array<Coord> = []
+            way.nd.forEach((nd: any) => {
+                const node = data.osm.node.find((node: any) => node.$.id === nd.$.ref)
+                geometry.push({
+                    lat: node.$.lat,
+                    lon: node.$.lon,
+                })
+            });
             newWays.push({
                 id: way.$.id,
                 p1: way.nd[0].$.ref,
                 p2: way.nd[lastPointIndex].$.ref,
+                geometry: geometry,
                 capacity: 1, // TODO: оценить
             })
             

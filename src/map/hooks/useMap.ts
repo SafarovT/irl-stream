@@ -1,4 +1,4 @@
-import {AbstractMap} from '../AbstractMap'
+import type {AbstractMap} from '../AbstractMap'
 import {useEffect, useRef} from 'react'
 import {MapOSM} from '../MapOSM'
 
@@ -10,7 +10,7 @@ function useMap(containerID: string): AbstractMap {
 	const mapRef = useRef(new MapOSM())
 	useEffect(() => {
 		initMap(mapRef.current, containerID)
-	}, [])
+	}, [containerID])
 
 	return mapRef.current
 }
