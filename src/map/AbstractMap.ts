@@ -6,6 +6,8 @@ abstract class AbstractMap {
 	public abstract GetBouds(): BBox
 	public abstract Clear(): void
 	public abstract DisplayMapObjects(objects: MapObjects): void
+	public abstract AddOnClick(callback: (id: string) => void): void
+	public abstract AddPoints(coords: Coord[], color: string[]): void 
 }
 
 export {

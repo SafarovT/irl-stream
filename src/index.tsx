@@ -17,11 +17,9 @@ const root = ReactDOM.createRoot(
 )
 
 root.render(
-    <React.StrictMode>
-        <reatomContext.Provider value={ctx}>
+    <reatomContext.Provider value={ctx}>
             <MapPage />
-        </reatomContext.Provider>
-    </React.StrictMode>
+    </reatomContext.Provider>
 )
 
 // to log performance: reportWebVitals(console.log)

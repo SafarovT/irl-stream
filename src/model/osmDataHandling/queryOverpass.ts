@@ -1,7 +1,10 @@
 import {fetchPostRequest} from "../../utils/fetchRequest"
 
+// const ENDPOINT_URL = 'https://maps.mail.ru/osm/tools/overpass/api/interpreter'
+const ENDPOINT_URL = 'https://overpass-api.de/api/interpreter'
+
 function queryOverpass(query: string) {
-    const overpassUrl = 'https://overpass-api.de/api/interpreter' // TODO: обращаться к VK
+    const overpassUrl = ENDPOINT_URL
     const timeout = 25000
     const format = 'xml'
 

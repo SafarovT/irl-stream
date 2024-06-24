@@ -27,12 +27,44 @@ function simplifyData(data: any): MapObjects {
                     lon: node.$.lon,
                 })
             });
+            let capacity = 0
+            const voltage = way.tag.find((tag: any) => tag.$.k === 'voltage')
+            if (voltage) {
+                capacity = Number(voltage.$.v)
+
+                const cables = way.tag.find((tag: any) => tag.$.k === 'cables')
+                if (cables) {
+                    const cablesNumber = Number(cables.$.v)
+                    capacity *= cablesNumber
+
+                    const wires = way.tag.find((tag: any) => tag.$.k === 'wires')
+                    if (wires) {
+                        const wiresValue = wires.$.v
+                        let mult = 1
+                        switch (wiresValue) {
+                            case 'double':
+                                mult = 2
+                                break
+                            case 'triple':
+                                mult = 3
+                                break
+                            case 'quad':
+                                mult = 4
+                                break
+                            case 'single':
+                            default:
+                                break
+                        }
+                        capacity *= mult
+                    }
+                }
+            }
             newWays.push({
                 id: way.$.id,
                 p1: way.nd[0].$.ref,
                 p2: way.nd[lastPointIndex].$.ref,
                 geometry: geometry,
-                capacity: 1, // TODO: оценить
+                capacity,
             })
         }
     })
@@ -52,7 +84,6 @@ function simplifyData(data: any): MapObjects {
                 const wayToSplit = newWays[lastNewWayIndex]
                 const geometrySplitIndex = wayToSplit.geometry.findIndex(g => g === crossingCoord)
                 newWays.splice(lastNewWayIndex, 1)
-                // делить геометрию
                 newWays.push({
                     ...wayToSplit,
                     p2: crossing,
