@@ -1,0 +1,28 @@
+.legend {
+    position: absolute;
+    inset-inline-start: 10px;
+    inset-block-end: 10px;
+    width: 150px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.legend__label {
+    color: white;
+    font: 400 14px/16px "Roboto";
+}
+
+.legend__info {
+    width: 20px;
+    height: 3px;
+    border-radius: 1px;
+}

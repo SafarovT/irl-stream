@@ -7,7 +7,8 @@ abstract class AbstractMap {
 	public abstract Clear(): void
 	public abstract DisplayMapObjects(objects: MapObjects): void
 	public abstract AddOnClick(callback: (id: string) => void): void
-	public abstract AddPoints(coords: Coord[], color: string[]): void 
+	public abstract AddPoints(coords: Coord[], color: string[]): void
+	public abstract AddWays(ways: Array<Array<Coord>>, color: string[]): void 
 }
 
 export {

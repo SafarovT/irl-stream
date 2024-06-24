@@ -92,7 +92,7 @@ function simplifyData(data: any): MapObjects {
                 newWays.push({
                     ...wayToSplit,
                     p1: crossing,
-                    geometry: wayToSplit.geometry.slice(geometrySplitIndex)
+                    geometry: wayToSplit.geometry.slice(geometrySplitIndex - 1)
                 })
             }
         })
@@ -101,9 +101,19 @@ function simplifyData(data: any): MapObjects {
             id: crossingNode.$.id,
         })
     })
-
+    const portals: any[] = []
     // Устранение лишних вершин
     data.osm.node.forEach((node: any) => {
+        // if (node.tag) {
+        //     const power = node.tag.find((t: any) => (t.$.k) && (t.$.k  === 'power'))
+        //     if (power && power.$ && power.$.v && power.$.v === 'portal') {
+        //         portals.push({
+        //             ...node,
+        //             visited: false,
+        //         }) 
+        //         return
+        //     }
+        // }
         if (!nodesToDelete.includes(node.$.id) && !newNodes.find(newNode => newNode.id === node.$.id)) {
             newNodes.push({
                 coord: {
@@ -114,6 +124,37 @@ function simplifyData(data: any): MapObjects {
             })
         }
     })
+    // portals.forEach((portal, i, arr) => {
+    //     if (!portal.visited) {
+    //         const closestPortals: Array<any> = []
+    //         arr.forEach((p, i) => {
+    //             const distance = Math.sqrt(Math.pow(Math.abs(p.$.lat - portal.$.lat), 2) + Math.pow(Math.abs(p.$.lon - p.$.lon), 2))
+    //             console.log(distance)
+    //             if (distance < 0.005) {
+    //                 arr[i].visited = true
+    //                 closestPortals.push(p)
+    //             }
+    //         })
+    //         newNodes.push({
+    //             coord: {
+    //                 lat: portal.$.lat,
+    //                 lon: portal.$.lon,
+    //             },
+    //             id: portal.$.id,
+    //         })
+    //         closestPortals.forEach(p => {
+    //             const id = p.$.id
+    //             newWays.forEach(way => {
+    //                 if (way.p1 === id) {
+    //                     way.p1 = portal.$.id
+    //                 }
+    //                 else if (way.p2 === id) {
+    //                     way.p2 = portal.$.id
+    //                 }
+    //             })
+    //         })
+    //     }
+    // })
     
     return {
         nodes: newNodes,
