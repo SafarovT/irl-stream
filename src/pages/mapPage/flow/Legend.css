@@ -2,9 +2,10 @@
     position: absolute;
     inset-inline-start: 10px;
     inset-block-end: 10px;
-    width: 150px;
+    width: 170px;
     padding: 15px;
     background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -22,7 +23,7 @@
 }
 
 .legend__info {
-    width: 20px;
-    height: 3px;
-    border-radius: 1px;
+    width: 30px;
+    height: 4px;
+    border-radius: 999px;
 }

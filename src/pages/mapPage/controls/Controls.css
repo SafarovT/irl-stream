@@ -1,7 +1,6 @@
 .controls {
-    width: 300px;
     position: absolute;
-    inset-inline-end: 0;
+    inset-inline-start: 0;
     inset-block-start: 0;
     padding-inline: 15px;
     padding-block: 15px;
@@ -11,12 +10,29 @@
 .controls {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.controls__main-buttons-container {
+    display: flex;
+    gap: 20px;
 }
 
 .points-block__points-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    gap: 30px;
+    gap: 10px;
+}
+
+.points-container__point {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 14px/16px "Roboto";
+}
+
+.points-container__text {
+    min-width: 40px;
 }

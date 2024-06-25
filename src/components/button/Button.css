@@ -3,12 +3,29 @@
     justify-content: center;
     align-items: center;
 
-    font: 14px/16px "Roboto";
+    font: 500 16px/16px "Roboto";
     
-    border: 1px solid blue;
-    background-color: white;
-    padding-inline: 10px;
-    padding-block: 10px;
+    border: 0;
+    color: white;
+    background-color: #3B49DF;
+    border-radius: 6px;
+    padding-inline: 24px;
+    padding-block: 15px;
 
     cursor: pointer;
+}
+
+.button:hover {
+    background-color: #131F91;
+}
+
+.button_secondary {
+    border: 1px solid #3B49DF;
+    color: #3B49DF;
+    background-color: white;
+}
+
+.button_secondary:hover {
+    background-color: white;
+    color: #131F91;
 }

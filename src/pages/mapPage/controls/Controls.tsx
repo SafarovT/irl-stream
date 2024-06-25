@@ -18,63 +18,47 @@ const Controls = (props: ControlsProps) => {
         isSinkPointSelected,
     } = useControls(props.map)
 
-    return (
-        <div className="controls">
-            <Button
-                text="Получить электросети"
-                onClick={initLeps}
-            />
-            <PointsBlock
-                onResetPoints={resetPoints}
-                onFindFlow={findFlow}
-                isSourcePointSelected={isSourcePointSelected}
-                isSinkPointSelected={isSinkPointSelected}
-            />
-            
-        </div>
-    )
-}
-
-type PointsBlockProps = {
-    onFindFlow: () => void,
-    onResetPoints: () => void,
-    isSourcePointSelected: boolean,
-    isSinkPointSelected: boolean,
-}
-
-const PointsBlock = (props: PointsBlockProps) => {
-    const {
-        onFindFlow,
-        onResetPoints,
-        isSourcePointSelected,
-        isSinkPointSelected,
-    } = props
     const isAbleToFindFlow =  isSourcePointSelected && isSinkPointSelected
     const isAbleToReset = isSourcePointSelected || isSinkPointSelected
 
     return (
-        <div className="points-block">
-            <div className="points-block__points-container">
-                <Indicator
-                    active={isSourcePointSelected}
-                    index={0}
+        <div className="controls">
+            <div className="controls__main-buttons-container">
+                <Button
+                    text="Получить данные"
+                    onClick={initLeps}
                 />
-                <Indicator
-                    active={isSinkPointSelected}
-                    index={1}
-                />
+                {isAbleToFindFlow && <Button
+                    text="Поиск потока"
+                    onClick={findFlow}
+                    style='secondary'
+                />}
             </div>
-            {isAbleToReset && <Button
-                text="Сбросить точки"
-                onClick={onResetPoints}
-            />}
-            {isAbleToFindFlow && <Button
-                text="Найти наибольший поток"
-                onClick={onFindFlow}
-            />}
+            <div className="points-block">
+                <div className="points-block__points-container">
+                    <div className="points-container__point">
+                        <Indicator
+                            active={isSourcePointSelected}
+                            index={0}
+                        />
+                    </div>
+                    <div className="points-container__point">
+                        <Indicator
+                            active={isSinkPointSelected}
+                            index={1}
+                        />
+                    </div>
+                </div>
+                {isAbleToReset && <Button
+                    text="Сбросить точки"
+                    onClick={resetPoints}
+                />}
+            </div>
         </div>
     )
 }
+
+// <div className="points-container__text">Сток: </div>
 
 export {
     Controls
